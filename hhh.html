@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Love 💚</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+html { scroll-behavior: smooth; }
+body { margin:0; font-family:'Poppins',sans-serif; overflow-x:hidden; cursor:pointer; }
+
+/* Sections */
+section { padding:60px 20px; text-align:center; position:relative; overflow:hidden; }
+h1,h2 { font-family:'Dancing Script',cursive; margin-bottom:20px; }
+p { font-size:1.1em; line-height:1.6; }
+
+/* Hero Section */
+.hero {
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:20px;
+  position:relative;
+  overflow:hidden;
+  background: linear-gradient(270deg, #a8e6cf, #dcedc1, #ffd1dc, #ffc0cb);
+  background-size: 800% 800%;
+  animation: gradientShift 20s ease infinite;
+}
+@keyframes gradientShift { 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+
+.overlay {
+  position: relative;
+  z-index:2;
+  background: rgba(255,255,255,0.15);
+  padding:40px;
+  border-radius:20px;
+  backdrop-filter: blur(10px);
+  display:flex; flex-direction:column; align-items:center;
+}
+
+.hero h1 { font-size:3em; animation: fadeInUp 2s ease-out, glow 2s ease-in-out infinite alternate; }
+.hero p { font-size:1.3em; margin-top:15px; animation: fadeIn 3s ease-in; }
+
+@keyframes fadeInUp { from{opacity:0;transform:translateY(40px);} to{opacity:1;transform:translateY(0);} }
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+@keyframes glow { from{text-shadow:0 0 10px #3d9a3d,0 0 20px #3d9a3d;} to{text-shadow:0 0 20px #2b7a2b,0 0 30px #2b7a2b;} }
+
+/* Floating hearts */
+.hearts { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:visible; z-index:1; }
+
+/* Memories Section */
+#memories { background:#e6f5e6; position:relative; }
+.gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:15px; max-width:900px; margin:auto; position:relative; z-index:2; }
+.gallery img { width:100%; border-radius:15px; transition: transform 0.4s, box-shadow 0.4s; cursor:pointer; object-fit:cover; }
+.gallery img:hover { transform: scale(1.1); box-shadow: 0 0 20px rgba(43, 122, 43, 0.6); }
+
+/* Lightbox */
+#lightbox {
+  position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8);
+  display:none; align-items:center; justify-content:center; z-index:9999;
+}
+#lightbox img { max-width:90%; max-height:90%; border-radius:20px; box-shadow:0 0 30px rgba(255,255,255,0.5); }
+
+/* Surprise Section */
+#surprise { background:linear-gradient(135deg, #d4f0d4, #e6f5e6); position:relative; }
+.surprise-btn {
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+  color:white;
+  border:none;
+  padding:15px 30px;
+  font-size:1.3em;
+  border-radius:50px;
+  cursor:pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  position:relative;
+  z-index:2;
+}
+.surprise-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+}
+
+/* Hidden message */
+.hidden-message { opacity:0; transform:translateY(20px); max-height:0; overflow:hidden; transition:all 1s ease; font-size:1.2em; margin-top:20px; color:#2b7a2b; position:relative; z-index:2; }
+.hidden-message.show { opacity:1; max-height:1000px; transform:translateY(0); animation: glow 2s ease-in-out infinite alternate, fadeInUp 1s ease-out; }
+.hidden-message img { display:block; margin:0 auto 20px; max-width:300px; border-radius:20px; box-shadow:0 0 20px rgba(43,122,43,0.5); animation: floatImage 3s ease-in-out infinite alternate; }
+@keyframes floatImage { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
+
+/* Heart style */
+.heart { position:absolute; width:25px; height:25px; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 29.6"><path fill="red" d="M23.6,0c-2.9,0-5.6,1.7-7.6,4.3C13.9,1.7,11.2,0,8.3,0C3.7,0,0,3.7,0,8.3c0,4.4,3.1,8,7.7,12.3 l8.3,8.4l8.3-8.4C28.9,16.3,32,12.7,32,8.3C32,3.7,28.3,0,23.6,0z"/></svg>') no-repeat center/contain; animation: floatHeart linear forwards; opacity:0.8; }
+@keyframes floatHeart { 0%{transform:translateY(0) scale(0.5) rotate(0deg);opacity:0;}10%{opacity:1;}100%{transform:translateY(-120vh) scale(1) rotate(360deg);opacity:0;} }
+
+/* Ending Section */
+#forever { background: linear-gradient(135deg,#ffd1dc,#ffc0cb); position: relative; }
+#forever h2 { font-size:2.5em; animation:heartbeat 1.5s infinite; color:#e60073; }
+@keyframes heartbeat { 0%,100%{transform:scale(1);}50%{transform:scale(1.2);} }
+
+/* Floating petals */
+.petals { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:hidden; z-index:0; }
+.petal { position:absolute; width:20px; height:20px; background:url('flower.png') no-repeat center/contain; animation:fall linear infinite; opacity:0.8; }
+@keyframes fall { 0% {transform:translateY(-50px) rotate(0deg);} 100% {transform:translateY(100vh) rotate(360deg);} }
+
+@media(max-width:600px){.hero h1{font-size:2em;}.hero p{font-size:1em;}.hidden-message img{max-width:90%;}}
+</style>
+</head>
+<body>
+
+<div class="petals"></div>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hearts hearts-hero"></div>
+  <div class="overlay">
+    <h1>For My Love 💚</h1>
+    <p>You make my world bloom like flowers 🌸</p>
+    <p style="margin-top:15px; font-weight:bold;">🎵 Wanna Be Yours</p>
+    <audio id="loveAudio" loop>
+      <source src="C:\Users\sumanth\Music\Arctic-Monkeys-I-Wanna-Be-Yours-(RawPraise.ng).mp3" type="audio/mp3">
+    </audio>
+    <button id="playBtn" class="surprise-btn">▶ Play Music</button>
+  </div>
+</section>
+
+<!-- Memories Section -->
+<section id="memories">
+  <h2>Our Memories</h2>
+  <div class="hearts hearts-memories"></div>
+  <div class="gallery">
+    <img src="C:\Users\sumanth\OneDrive\Desktop\pro\H3.jpg" alt="Memory 1">
+    <img src="C:\Users\sumanth\OneDrive\Desktop\pro\H2.jpg" alt="Memory 2">
+    <img src="C:\Users\sumanth\OneDrive\Desktop\pro\H1.jpg"alt="Memory 3">
+    <img src="C:\Users\sumanth\OneDrive\Desktop\pro\H.jpg" alt="Memory 4">
+    <img src="C:\Users\sumanth\OneDrive\Desktop\pro\H5.jpg" alt="Memory 5">
+    <img src="C:\Users\sumanth\OneDrive\Desktop\pro\h7.jpg"s alt="Memory 6">
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox"><img src="" alt="Enlarged Memory"></div>
+
+<!-- Surprise Section -->
+<section id="surprise">
+  <h2>A Special Surprise 💌</h2>
+  <button class="surprise-btn" onclick="showMessage()">Click to Reveal Surprise 🌸</button>
+  <div id="loveMessage" class="hidden-message">
+    <img src="C:\Users\sumanth\OneDrive\Desktop\pro\H4.jpg" alt="Our Special Moment">
+    💚 My Love, you are the most beautiful part of my life.<br>
+    Like an angel decended in my life, I need you.<br>
+    I’ll always be there for you and love you endlessly. 💚
+  </div>
+  <div class="hearts hearts-surprise"></div>
+</section>
+
+<!-- Ending Section -->
+<section id="forever">
+  <h2>I Love You Forever 💕</h2>
+  <p>🌸💚🌸💚🌸💚</p>
+</section>
+
+<script>
+// Play music on first click anywhere
+const audio = document.getElementById('loveAudio');
+const playBtn = document.getElementById('playBtn');
+function startMusic() {
+  audio.play().catch(()=>console.log("User interaction needed"));
+  playBtn.style.display = 'none';
+  document.removeEventListener('click', startMusic);
+}
+document.addEventListener('click', startMusic);
+
+// Petals
+const petals = document.querySelector('.petals');
+setInterval(()=>{
+  if(petals.children.length < 30){
+    const petal=document.createElement('div');
+    petal.className='petal';
+    petal.style.left=Math.random()*100+'vw';
+    petal.style.width=petal.style.height=(Math.random()*20+15)+'px';
+    petal.style.animationDuration=(Math.random()*3+4)+'s';
+    petals.appendChild(petal);
+    setTimeout(()=>petal.remove(),7000);
+  }
+},400);
+
+// Floating hearts function
+function createHearts(container, count=1){
+  for(let i=0;i<count;i++){
+    const heart=document.createElement('div');
+    heart.className='heart';
+    heart.style.left=Math.random()*100+'vw';
+    heart.style.bottom='-50px';
+    heart.style.width = heart.style.height = (Math.random()*25+15)+'px';
+    heart.style.animationDuration=(Math.random()*3+3)+'s';
+    container.appendChild(heart);
+    setTimeout(()=>heart.remove(),7000);
+  }
+}
+
+// Hero hearts
+setInterval(()=>createHearts(document.querySelector('.hearts-hero')),300);
+
+// Memories hearts
+setInterval(()=>createHearts(document.querySelector('.hearts-memories')),500);
+
+// Surprise hearts
+function showMessage(){
+  const loveMessage=document.getElementById("loveMessage");
+  loveMessage.classList.add("show");
+  createHearts(document.querySelector('.hearts-surprise'),30);
+}
+
+// Lightbox
+const galleryImages = document.querySelectorAll('.gallery img');
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = lightbox.querySelector('img');
+galleryImages.forEach(img=>{
+  img.addEventListener('click', ()=>{
+    lightboxImg.src = img.src;
+    lightbox.style.display = 'flex';
+  });
+});
+lightbox.addEventListener('click', ()=> lightbox.style.display = 'none');
+</script>
+</body>
+</html>
